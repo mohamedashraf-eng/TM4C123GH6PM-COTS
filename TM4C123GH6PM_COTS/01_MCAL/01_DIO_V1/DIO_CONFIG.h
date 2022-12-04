@@ -30,8 +30,25 @@
 #define DIO_PORTD_BUS   ( DIO_APB_BUS_ID )
 #define DIO_PORTE_BUS   ( DIO_APB_BUS_ID )
 #define DIO_PORTF_BUS   ( DIO_AHB_BUS_ID )
+/**
+ * @brief PORT mode.
+ *
+ * @defgroup Config Params
+ *      @arg DIO_PORT_CONFIG_ACTIVE
+ *      @arg DIO_PORT_CONFIG_INACTIVE
+ */
+#define DIO_PORTA_CONFIG  ( DIO_PORT_CONFIG_INACTIVE )
+#define DIO_PORTB_CONFIG  ( DIO_PORT_CONFIG_INACTIVE )
+#define DIO_PORTC_CONFIG  ( DIO_PORT_CONFIG_INACTIVE )
+#define DIO_PORTD_CONFIG  ( DIO_PORT_CONFIG_INACTIVE )
+#define DIO_PORTE_CONFIG  ( DIO_PORT_CONFIG_INACTIVE )
+#define DIO_PORTF_CONFIG  ( DIO_PORT_CONFIG_INACTIVE )
 
 /** @degroup Port A specific configurations */
+/** @brief Check if the port is active or inactive */
+#if (DIO_PORTA_MODE == DIO_PORT_CONFIG_ACTIVE)
+
+/** @defgroup Port A, Pin 0 */
 /**
  * @brief .
  *
@@ -39,7 +56,7 @@
  *      @arg DIO_PORTA_PIN_MODE_DIGITAL
  *      @arg DIO_PORTA_PIN_MODE_ANALOG
  */
-#define DIO_PORTA_PIN_MODE
+#define DIO_PORTA_PIN0_MODE
 /**
  * @brief .
  *
@@ -47,7 +64,7 @@
  *      @arg DIO_PORTA_PIN_DIR_INPUT
  *      @arg DIO_PORTA_PIN_DIR_OUTPUT
  */
-#define DIO_PORTA_PIN_DIR
+#define DIO_PORTA_PIN0_DIR
 /**
  * @brief .
  *
@@ -56,7 +73,7 @@
  *      @arg DIO_PORTA_PIN_STRENGTH_4MA
  *      @arg DIO_PORTA_PIN_STRENGTH_8MA
  */
-#define DIO_PORTA_PIN_STRENGTH
+#define DIO_PORTA_PIN0_STRENGTH
 /**
  * @brief .
  *
@@ -64,7 +81,7 @@
  *      @arg DIO_PORTA_PIN_PUR_ACTIVE
  *      @arg DIO_PORTA_PIN_PUR_INACTIVE
  */
-#define DIO_PORTA_PIN_PUR
+#define DIO_PORTA_PIN0_PUR
 /**
  * @brief .
  *
@@ -72,7 +89,7 @@
  *      @arg DIO_PORTA_PIN_PDR_ACTIVE
  *      @arg DIO_PORTA_PIN_PDR_INACTIVE
  */
-#define DIO_PORTA_PIN_PDR
+#define DIO_PORTA_PIN0_PDR
 /**
  * @brief .
  *
@@ -80,7 +97,7 @@
  *      @arg DIO_PORTA_PIN_OD_ACTIVE
  *      @arg DIO_PORTA_PIN_OD_INACTIVE
  */
-#define DIO_PORTA_PIN_OD
+#define DIO_PORTA_PIN0_OD
 /**
  * @brief .
  *
@@ -88,7 +105,7 @@
  *      @arg DIO_PORTA_PIN_AF_ACTIVE
  *      @arg DIO_PORTA_PIN_AF_INACTIVE
  */
-#define DIO_PORTA_PIN_AF
+#define DIO_PORTA_PIN0_AF
 /**
  * @brief .
  *
@@ -100,7 +117,7 @@
  *      @arg DIO_PORTA_PIN_INT_SENSE_EB << Both Edge.
  *      @arg DIO_PORTA_PIN_INT_SENSE_LB << Both Level.
  */
-#define DIO_PORTA_PIN_INT_SENSE
+#define DIO_PORTA_PIN0_INT_SENSE
 /**
  * @brief .
  *
@@ -108,7 +125,7 @@
  *      @arg DIO_PORTA_PIN_INT_MASK_ACTIVE
  *      @arg DIO_PORTA_PIN_INT_MASK_INACTIVE
  */
-#define DIO_PORTA_PIN_INT_MASK
+#define DIO_PORTA_PIN0_INT_MASK
 /**
  * @brief .
  *
@@ -116,8 +133,18 @@
  *      @arg DIO_PORTA_PIN_INIT_DATA_LOW
  *      @arg DIO_PORTA_PIN_INIT_DATA_HIGH
  */
-#define DIO_PORTA_PIN_INIT_DATA
+#define DIO_PORTA_PIN0_INIT_DATA
 
+/** @defgroup Port A, Pin 1 */
+/** @defgroup Port A, Pin 2 */
+/** @defgroup Port A, Pin 3 */
+/** @defgroup Port A, Pin 4 */
+/** @defgroup Port A, Pin 5 */
+/** @defgroup Port A, Pin 6 */
+/** @defgroup Port A, Pin 7 */
 
+#else
+    #warning ("PORTA MODE: INACTIVE")
+#endif
 
 #endif /* __DIO_CONFIG_H__ */
