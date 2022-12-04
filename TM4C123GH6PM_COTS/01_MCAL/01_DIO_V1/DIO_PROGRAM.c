@@ -104,7 +104,7 @@ DIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
 */
 
 static En_DIO_ErrorStatus_t
-EnSetPORTA_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
+EnSetPORTA_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -115,7 +115,7 @@ EnSetPORTA_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
 }
 /** ------ New ------ Function ------ */
 static En_DIO_ErrorStatus_t
-EnSetPORTB_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
+EnSetPORTB_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -126,7 +126,7 @@ EnSetPORTB_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
 }
 /** ------ New ------ Function ------ */
 static En_DIO_ErrorStatus_t
-EnSetPORTC_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
+EnSetPORTC_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -137,7 +137,7 @@ EnSetPORTC_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
 }
 /** ------ New ------ Function ------ */
 static En_DIO_ErrorStatus_t
-EnSetPORTD_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
+EnSetPORTD_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -148,7 +148,7 @@ EnSetPORTD_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
 }
 /** ------ New ------ Function ------ */
 static En_DIO_ErrorStatus_t
-EnSetPORTE_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
+EnSetPORTE_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -159,7 +159,7 @@ EnSetPORTE_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
 }
 /** ------ New ------ Function ------ */
 static En_DIO_ErrorStatus_t
-EnSetPORTF_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
+EnSetPORTF_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -188,7 +188,11 @@ EnSetPORTF_Cfg(St_PinCfg_t * const Copy_tPinCfgInstance)
 
         /** @defgroup Set interrupt configurations */
         BIT_WRT(GPIO_IM(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].int_mask);
+
+        /** @todo set the interrupt sense */
     }
+
+    L_EnThisFuncErrStatus = DIO_OK;
 
     return L_EnThisFuncErrStatus;
 }
