@@ -77,6 +77,7 @@
 #define ADD_OFFSET(_BASE_ADDR, _OFFSET) (_BASE_ADDR + _OFFSET)
 
 /** @defgroup developr macros */
+#define DIO_NUM_OF_PORTS           ( (u8) (0x06U) )
 #define DIO_PORT_MAX_PIN_NUMS      ( (u8) (0x08U) )
 #define DIO_PORTA_MAX_PIN_NUMS     ( (u8) (0x07U) )
 #define DIO_PORTB_MAX_PIN_NUMS     ( (u8) (0x07U) )
@@ -95,6 +96,7 @@
  * @defgroup User defined data type.
  */
 typedef u8 uC_GPIOxID_t;
+typedef void (*DIO_CallBackFuncPtr_t)(void);
 
 /**
  * @defgroup Struct data type.
@@ -176,5 +178,29 @@ EnSetPORTF_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
 
 static En_DIO_ErrorStatus_t
 EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance);
+
+
+
+/** @defgroup Interrupt ISR functions */
+static En_DIO_ErrorStatus_t
+EnSetCallBack(uC_PortID_t Copy_tPortID);
+
+__attribute__((signal, used))
+void GPIOA_Handler(void);
+
+__attribute__((signal, used))
+void GPIOB_Handler(void);
+
+__attribute__((signal, used))
+void GPIOC_Handler(void);
+
+__attribute__((signal, used))
+void GPIOD_Handler(void);
+
+__attribute__((signal, used))
+void GPIOE_Handler(void);
+
+__attribute__((signal, used))
+void GPIOF_Handler(void);
 
 #endif /* __DIO_PRIVATE_H__ */

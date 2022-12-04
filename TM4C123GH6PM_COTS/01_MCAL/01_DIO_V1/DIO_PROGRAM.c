@@ -28,6 +28,8 @@
 ----------------------------------------------------------------------
 */
 
+/** @defgroup Call back functions */
+DIO_CallBackFuncPtr_t G_tCallBackFuncPtr[DIO_NUM_OF_PORTS] = {NULL, NULL, NULL, NULL, NULL, NULL};
 
 /*
 ----------------------------------------------------------------------
@@ -206,4 +208,116 @@ EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance)
     DEFAULT_UNIMPLEMENTED_HANDLER();
 
     return L_EnThisFuncErrStatus;
+}
+
+
+/** @defgroup Interrupt ISR functions */
+static En_DIO_ErrorStatus_t
+EnSetCallBack(uC_PortID_t Copy_tPortID,
+              DIO_CallBackFuncPtr_t Copy_tCallBackFunc)
+{
+    En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
+
+    /* Check the function validity */
+    if( (NULL != Copy_tCallBackFunc) )
+    {
+        /* Switch on the port */
+        switch(Copy_tPortID)
+        {
+            case DIO_PORTA_ID:
+                    G_tCallBackFuncPtr[DIO_PORTA_ID] = Copy_tCallBackFunc;
+                break;
+            case DIO_PORTB_ID:
+                    G_tCallBackFuncPtr[DIO_PORTB_ID] = Copy_tCallBackFunc;
+                break;
+            case DIO_PORTC_ID:
+                    G_tCallBackFuncPtr[DIO_PORTC_ID] = Copy_tCallBackFunc;
+                break;
+            case DIO_PORTD_ID:
+                    G_tCallBackFuncPtr[DIO_PORTD_ID] = Copy_tCallBackFunc;
+                break;
+            case DIO_PORTE_ID:
+                    G_tCallBackFuncPtr[DIO_PORTE_ID] = Copy_tCallBackFunc;
+                break;
+            case DIO_PORTF_ID:
+                    G_tCallBackFuncPtr[DIO_PORTF_ID] = Copy_tCallBackFunc;
+                break;
+
+            default:
+                    /* Error handle - Print to user */
+                break;
+        }
+
+        L_EnThisFuncErrStatus = DIO_OK;
+    }
+    else {/* Error handle - Print to user */}
+
+    return L_EnThisFuncErrStatus;
+}
+
+/** ------ New ------ Function ------ */
+void GPIOA_Handler(void)
+{
+    /* Check the function validity */
+    if( (NULL != G_tCallBackFuncPtr[DIO_PORTA_ID]) )
+    {
+        /* Call the function */
+        G_tCallBackFuncPtr[DIO_PORTA_ID]();
+    }
+    else {/* Error handle - Print to user */}
+}
+/** ------ New ------ Function ------ */
+void GPIOB_Handler(void)
+{
+    /* Check the function validity */
+    if( (NULL != G_tCallBackFuncPtr[DIO_PORTB_ID]) )
+    {
+        /* Call the function */
+        G_tCallBackFuncPtr[DIO_PORTB_ID]();
+    }
+    else {/* Error handle - Print to user */}
+}
+/** ------ New ------ Function ------ */
+void GPIOC_Handler(void)
+{
+    /* Check the function validity */
+    if( (NULL != G_tCallBackFuncPtr[DIO_PORTC_ID]) )
+    {
+        /* Call the function */
+        G_tCallBackFuncPtr[DIO_PORTC_ID]();
+    }
+    else {/* Error handle - Print to user */}
+}
+/** ------ New ------ Function ------ */
+void GPIOD_Handler(void)
+{
+    /* Check the function validity */
+    if( (NULL != G_tCallBackFuncPtr[DIO_PORTD_ID]) )
+    {
+        /* Call the function */
+        G_tCallBackFuncPtr[DIO_PORTD_ID]();
+    }
+    else {/* Error handle - Print to user */}
+}
+/** ------ New ------ Function ------ */
+void GPIOE_Handler(void)
+{
+    /* Check the function validity */
+    if( (NULL != G_tCallBackFuncPtr[DIO_PORTE_ID]) )
+    {
+        /* Call the function */
+        G_tCallBackFuncPtr[DIO_PORTE_ID]();
+    }
+    else {/* Error handle - Print to user */}
+}
+/** ------ New ------ Function ------ */
+void GPIOF_Handler(void)
+{
+    /* Check the function validity */
+    if( (NULL != G_tCallBackFuncPtr[DIO_PORTF_ID]) )
+    {
+        /* Call the function */
+        G_tCallBackFuncPtr[DIO_PORTF_ID]();
+    }
+    else {/* Error handle - Print to user */}
 }
