@@ -1,0 +1,86 @@
+/**
+ * @file main.c
+ * @author Mohamed Wx
+ * @date 26 Nov 2022
+ * @version v0.0
+ * @copyrights Copyrights (c) 2022 Mohamed Ashraf
+ *
+ */
+
+/** @defgroup Included headers */
+#include "../00_LIB/LIB_MVP/STD_TYPES.h"
+#include "../00_LIB/LIB_MVP/BIT_MATH.h"
+#include "../00_LIB/LIB_MVP/DEFAULT_HANDLER.h"
+
+#include "../01_MCAL/00_SCR_MVP/SCR_INTERFACE.h"
+#include "../01_MCAL/01_DIO_MVP/DIO_INTERFACE.h"
+#include "../01_MCAL/02_NVIC_MVP/NVIC_INTERFACE.h"
+
+void TurnOnRedLed(void);
+void TurnOffRedLed(void);
+
+/**
+ * @brief Entry point function
+ *
+ */
+int main(void)
+{ 
+	
+	//MSCR_tConfigSystemClock();
+	
+	MSCR_tSetGPIOxBus(SCR_PORTF_ID, AHB_ID);
+	MSCR_tEnableClock(GPIO_ID, GPIOF_ID);
+
+	
+	MDIO_tSetPinDir(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_DIR_OUTPUT);
+	MDIO_tSetPinDig(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_DIG_ENABLE);
+	MDIO_tSetPinCurrentDrive(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_CD_4MA);
+	MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_DO_LOW);
+	
+	MDIO_tSetPinDir(DIO_PORTF_ID, DIO_PORTF_PIN2, DIO_PORTF_AHB, DIO_PIN_DIR_OUTPUT);
+	MDIO_tSetPinDig(DIO_PORTF_ID, DIO_PORTF_PIN2, DIO_PORTF_AHB, DIO_PIN_DIG_ENABLE);
+	MDIO_tSetPinCurrentDrive(DIO_PORTF_ID, DIO_PORTF_PIN2, DIO_PORTF_AHB, DIO_PIN_CD_4MA);
+	MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN2, DIO_PORTF_AHB, DIO_PIN_DO_LOW);
+	
+	MDIO_tSetPinDir(DIO_PORTF_ID, DIO_PORTF_PIN4, DIO_PORTF_AHB, DIO_PIN_DIR_INPUT);
+	MDIO_tSetPinDig(DIO_PORTF_ID, DIO_PORTF_PIN4, DIO_PORTF_AHB, DIO_PIN_DIG_ENABLE);
+	MDIO_tSetPinCurrentDrive(DIO_PORTF_ID, DIO_PORTF_PIN4, DIO_PORTF_AHB, DIO_PIN_CD_4MA);
+	MDIO_tSetPinPUR(DIO_PORTF_ID, DIO_PORTF_PIN4, DIO_PORTF_AHB);
+	MDIO_tSetPinIntSense(DIO_PORTF_ID, DIO_PORTF_PIN4, DIO_PORTF_AHB, DIO_PIN_INT_SENSE_RE);
+	MDIO_tSetPinIntState(DIO_PORTF_ID, DIO_PORTF_PIN4, DIO_PORTF_AHB, DIO_PIN_INT_ENABLE);
+	
+	MDIO_tSetCallBack(DIO_PORTF_ID, &TurnOnRedLed);
+	
+	MNVIC_tSetPeriphInt(NVIC_GPIOF);
+	
+	while(1)
+	{
+		MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN2, DIO_PORTF_AHB, DIO_PIN_DO_HIGH);
+	
+	}
+	
+	return 0;
+}
+
+static volatile u8 tog = 0;
+
+void TurnOnRedLed(void)
+{
+	MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN2, DIO_PORTF_AHB, DIO_PIN_DO_LOW);
+	
+	if( (tog) )
+	{
+		MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_DO_HIGH);
+	}
+	else
+	{
+		MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_DO_LOW);
+	}
+	
+	tog ^= 1;
+}
+void TurnOffRedLed(void)
+{
+	MDIO_tSetPinVal(DIO_PORTF_ID, DIO_PORTF_PIN1, DIO_PORTF_AHB, DIO_PIN_DO_LOW);
+
+}
