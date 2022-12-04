@@ -141,7 +141,7 @@ typedef struct
     uC_GPIOxID_t ID;
 
     /* Struct methods */
-
+    DIO_CallBackFuncPtr_t CallBackFunction;
 }St_PortCfg_t;
 
 
@@ -179,11 +179,10 @@ EnSetPORTF_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
 static En_DIO_ErrorStatus_t
 EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance);
 
-
-
 /** @defgroup Interrupt ISR functions */
 static En_DIO_ErrorStatus_t
-EnSetCallBack(uC_PortID_t Copy_tPortID);
+EnSetCallBack(uC_PortID_t Copy_tPortID,
+              DIO_CallBackFuncPtr_t Copy_tCallBackFunc);
 
 __attribute__((signal, used))
 void GPIOA_Handler(void);

@@ -88,8 +88,13 @@ DIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
         /* Check if the setter function is ok/nok */
         if( (DIO_OK == L_EnSetterFuncErrStatus) )
         {
-            /* Error handle - Print to user */
-            L_EnThisFuncErrStatus = DIO_OK;
+            L_EnSetterFuncErrStatus = EnSetCallBack(Copy_tPortCfgInstance->Port,
+                                                    Copy_tPortCfgInstance->CallBackFunction);
+            if( (DIO_OK == L_EnSetterFuncErrStatus)
+            {
+                L_EnThisFuncErrStatus = DIO_OK;
+            }
+            else {/* Error handle - Print to user */}
         }
         else {/* Error handle - Print to user */}
     }
