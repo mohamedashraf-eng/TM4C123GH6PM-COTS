@@ -118,7 +118,7 @@ EnSetPORTA_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
 
-    DEFAULT_UNIMPLEMENTED_HANDLER();
+    vSetPORT_PinCfg(DIO_PORTA_BUS, Copy_tPinCfgInstance);
 
     return L_EnThisFuncErrStatus;
 }
@@ -129,7 +129,7 @@ EnSetPORTB_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
 
-    DEFAULT_UNIMPLEMENTED_HANDLER();
+    vSetPORT_PinCfg(DIO_PORTB_BUS, Copy_tPinCfgInstance);
 
     return L_EnThisFuncErrStatus;
 }
@@ -140,7 +140,7 @@ EnSetPORTC_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
 
-    DEFAULT_UNIMPLEMENTED_HANDLER();
+    vSetPORT_PinCfg(DIO_PORTC_BUS, Copy_tPinCfgInstance);
 
     return L_EnThisFuncErrStatus;
 }
@@ -151,7 +151,7 @@ EnSetPORTD_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
 
-    DEFAULT_UNIMPLEMENTED_HANDLER();
+    vSetPORT_PinCfg(DIO_PORTD_BUS, Copy_tPinCfgInstance);
 
     return L_EnThisFuncErrStatus;
 }
@@ -162,7 +162,7 @@ EnSetPORTE_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
 
-    DEFAULT_UNIMPLEMENTED_HANDLER();
+    vSetPORT_PinCfg(DIO_PORTE_BUS, Copy_tPinCfgInstance);
 
     return L_EnThisFuncErrStatus;
 }
@@ -212,7 +212,7 @@ vSetPORT_PinCfg(Reg_t Copy_tPortAddr,
         BIT_WRT(GPIO_PDR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pdr);
         BIT_WRT(GPIO_SLR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].slr);
         BIT_WRT(GPIO_CR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].commit);
-        (Dio_PinMode_Digital == Copy_tPinCfgInstance[L_s8Iterator].mode) ? /* Set Analog/Digital */
+        (DIO_PIN_MODE_DIGITAL == Copy_tPinCfgInstance[L_s8Iterator].mode) ? /* Set Analog/Digital */
                                                     BIT_SET(GPIO_DEN(Copy_tPortAddr), L_s8Iterator)  :
                                                     BIT_SET(GPIO_AMSEL(Copy_tPortAddr), L_s8Iterator);
         BIT_WRT(GPIO_ADCCTL(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].adcctl);
