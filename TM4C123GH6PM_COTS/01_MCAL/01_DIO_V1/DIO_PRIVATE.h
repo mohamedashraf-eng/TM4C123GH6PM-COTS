@@ -232,12 +232,12 @@ __attribute__((packing))
 typedef struct
 {
     /* Struct variables */
-    uC_PortID_t Port;
+    Reg_t Port;
     St_PinCfg_t Pin[DIO_PORT_MAX_PIN_NUMS];
     uC_GPIOxID_t ID;
 
     /* Struct methods */
-    DIO_CallBackFuncPtr_t CallBackFunction;
+
 }St_PortCfg_t;
 
 /*
@@ -247,34 +247,8 @@ typedef struct
 */
 
 __attribute__((always_inline))
-static En_DIO_ErrorStatus_t
-EnSetPORTA_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
-
-__attribute__((always_inline))
-static En_DIO_ErrorStatus_t
-EnSetPORTB_Cfg(const St_PinCfg_t * const Copy_tCPinfgInstance);
-
-__attribute__((always_inline))
-static En_DIO_ErrorStatus_t
-EnSetPORTC_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
-
-__attribute__((always_inline))
-static En_DIO_ErrorStatus_t
-EnSetPORTD_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
-
-__attribute__((always_inline))
-static En_DIO_ErrorStatus_t
-EnSetPORTE_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
-
-__attribute__((always_inline))
-static En_DIO_ErrorStatus_t
-EnSetPORTF_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
-
-__attribute__((always_inline))
 static void
-vSetPORT_PinCfg(Reg_t Copy_tPortAddr,
-                const St_PinCfg_t * const Copy_tPinCfgInstance);
-
+vSetPORT_PinCfg(const St_PortCfg_t * const Copy_tPortCfgInstance);
 
 static En_DIO_ErrorStatus_t
 EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance);
