@@ -11,7 +11,6 @@
 #define __DIO_INTERFACE_H__
 
 #include "DIO_PRIVATE.h"
-
 /*
 ----------------------------------------------------------------------
 - Macros
@@ -136,6 +135,10 @@ typedef enum
     Dio_PinIntMask_Active
 }En_PinIntMask_t;
 
+#if (DIO_PORTF_CONFIG == DIO_PORT_CONFIG_ACTIVE)
+extern St_PortCfg_t G_StPORTF_Cfg;
+#endif
+
 /*
 ----------------------------------------------------------------------
 - Public functions declaration
@@ -143,14 +146,14 @@ typedef enum
 */
 
 extern En_DIO_ErrorStatus_t
-DIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance);
+MDIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance);
 
 extern En_DIO_ErrorStatus_t
-DIO_EnSetPin(const uC_PortID_t Copy_tPortID,
-             const uC_PinID_t  Copy_tPinNum);
+MDIO_EnSetPin(const uC_PortID_t Copy_tPortID,
+              const uC_PinID_t  Copy_tPinNum);
 
 extern En_DIO_ErrorStatus_t
-DIO_EnClrPin(const uC_PortID_t Copy_tPortID,
-             const uC_PinID_t  Copy_tPinNum);
+MDIO_EnClrPin(const uC_PortID_t Copy_tPortID,
+              const uC_PinID_t  Copy_tPinNum);
 
 #endif /* __DIO_INTERFACE_H__ */

@@ -99,6 +99,80 @@
 #define DIOE_AHB_BUS_ID            (GPIOE_AHB_BASE_ADDRESS)
 #define DIOF_AHB_BUS_ID            (GPIOF_AHB_BASE_ADDRESS)
 
+/** @defgroup Available ports */
+#define DIO_PORTA_ID        ( (u8) (0x00U) )
+#define DIO_PORTB_ID        ( (u8) (0x01U) )
+#define DIO_PORTC_ID        ( (u8) (0x02U) )
+#define DIO_PORTD_ID        ( (u8) (0x03U) )
+#define DIO_PORTE_ID        ( (u8) (0x04U) )
+#define DIO_PORTF_ID        ( (u8) (0x05U) )
+/** @defgroup Available pins */
+#define DIO_PIN0_ID         ( (u8) (0x00U) )
+#define DIO_PIN1_ID         ( (u8) (0x01U) )
+#define DIO_PIN2_ID         ( (u8) (0x02U) )
+#define DIO_PIN3_ID         ( (u8) (0x03U) )
+#define DIO_PIN4_ID         ( (u8) (0x04U) )
+#define DIO_PIN5_ID         ( (u8) (0x05U) )
+#define DIO_PIN6_ID         ( (u8) (0x06U) )
+#define DIO_PIN7_ID         ( (u8) (0x07U) )
+
+/** @defgroup Macro Configuration parameters declaration */
+/** @defgroup Pin mode config param */
+#define DIO_PIN_MODE_DIGITAL        ( (u8) (0x00U) )
+#define DIO_PIN_MODE_ANALOG         ( (u8) (0x01U) )
+/** @defgroup Pin dir config param */
+#define DIO_PIN_DIR_INPUT           ( (u8) (0x00U) )
+#define DIO_PIN_DIR_OUTPUT          ( (u8) (0x01U) )
+/** @defgroup Pin data config param */
+#define DIO_PIN_DATA_LOW            ( (u8) (0x00U) )
+#define DIO_PIN_DATA_HIGH           ( (u8) (0x01U) )
+/** @defgroup Pin af config param */
+#define DIO_PIN_AF_INACTIVE         ( (u8) (0x00U) )
+#define DIO_PIN_AF_ACTIVE           ( (u8) (0x01U) )
+/** @defgroup Pin pur config param */
+#define DIO_PIN_PUR_INACTIVE        ( (u8) (0x00U) )
+#define DIO_PIN_PUR_ACTIVE          ( (u8) (0x01U) )
+/** @defgroup Pin pdr config param */
+#define DIO_PIN_PDR_INACTIVE        ( (u8) (0x00U) )
+#define DIO_PIN_PDR_ACTIVE          ( (u8) (0x01U) )
+/** @defgroup Pin od config param */
+#define DIO_PIN_OD_INACTIVE         ( (u8) (0x00U) )
+#define DIO_PIN_OD_ACTIVE           ( (u8) (0x01U) )
+/** @defgroup Pin slr config param */
+#define DIO_PIN_SLR_INACTIVE        ( (u8) (0x00U) )
+#define DIO_PIN_SLR_ACTIVE          ( (u8) (0x01U) )
+/** @defgroup Pin commit config param */
+#define DIO_PIN_COMMIT_INACTIVE     ( (u8) (0x00U) )
+#define DIO_PIN_COMMIT_ACTIVE       ( (u8) (0x01U) )
+/** @defgroup Pin adctl config param */
+#define DIO_PIN_ADCTL_INACTIVE      ( (u8) (0x00U) )
+#define DIO_PIN_ADCTL_ACTIVE        ( (u8) (0x01U) )
+/** @defgroup Pin dmactl config param */
+#define DIO_PIN_DMACTL_INACTIVE     ( (u8) (0x00U) )
+#define DIO_PIN_DMACTL_ACTIVE       ( (u8) (0x01U) )
+/** @defgroup Pin dr2 config param */
+#define DIO_PIN_DR2_INACTIVE        ( (u8) (0x00U) )
+#define DIO_PIN_DR2_ACTIVE          ( (u8) (0x01U) )
+/** @defgroup Pin dr4 config param */
+#define DIO_PIN_DR4_INACTIVE        ( (u8) (0x00U) )
+#define DIO_PIN_DR4_ACTIVE          ( (u8) (0x01U) )
+/** @defgroup Pin dr8 config param */
+#define DIO_PIN_DR8_INACTIVE        ( (u8) (0x00U) )
+#define DIO_PIN_DR8_ACTIVE          ( (u8) (0x01U) )
+/** @defgroup Pin int mask config param */
+#define DIO_PIN_INTMASK_INACTIVE    ( (u8) (0x00U) )
+#define DIO_PIN_INTMASK_ACTIVE      ( (u8) (0x01U) )
+/** @defgroup Pin int sense config param */
+#define DIO_PIN_INTSENSE_FE         ( (u8) (0x00U) )
+#define DIO_PIN_INTSENSE_RE         ( (u8) (0x01U) )
+#define DIO_PIN_INTSENSE_LL         ( (u8) (0x02U) )
+#define DIO_PIN_INTSENSE_HL         ( (u8) (0x03U) )
+#define DIO_PIN_INTSENSE_BE         ( (u8) (0x04U) )
+#define DIO_PIN_INTSENSE_BL         ( (u8) (0x05U) )
+/** @defgroup Pin int status config param */
+#define DIO_PIN_INTSTATUS_INACTIVE  ( (u8) (0x00U) )
+#define DIO_PIN_INTSTATUS_ACTIVE    ( (u8) (0x01U) )
+
 /*
 ----------------------------------------------------------------------
 - Data types

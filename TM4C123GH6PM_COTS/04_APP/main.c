@@ -16,7 +16,6 @@
 #include "../01_MCAL/01_DIO_V1/DIO_INTERFACE.h"
 #include "../01_MCAL/02_NVIC_MVP/NVIC_INTERFACE.h"
 
-
 /**
  * @brief Entry point function
  *
@@ -24,6 +23,10 @@
 int main(void)
 { 
 	
+	MSCR_tSetGPIOxBus(SCR_PORTF_ID, AHB_ID);
+	MSCR_tEnableClock(GPIO_ID, SCR_PORTF_ID);
+	
+	MDIO_EnSetCfg(&G_StPORTF_Cfg);
 	
 	while(1)
 	{

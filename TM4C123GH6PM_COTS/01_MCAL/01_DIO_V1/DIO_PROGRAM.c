@@ -40,7 +40,7 @@ DIO_CallBackFuncPtr_t G_tCallBackFuncPtr[DIO_NUM_OF_PORTS] = {NULL, NULL, NULL,
 
 /** ------ New ------ Function ------ */
 En_DIO_ErrorStatus_t
-DIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
+MDIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
@@ -184,9 +184,9 @@ static En_DIO_ErrorStatus_t
 EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance)
 {
     /* Function variables */
-    En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
+    En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_OK;
 
-    DEFAULT_UNIMPLEMENTED_HANDLER();
+    /*DEFAULT_UNIMPLEMENTED_HANDLER();*/
 
     return L_EnThisFuncErrStatus;
 }
