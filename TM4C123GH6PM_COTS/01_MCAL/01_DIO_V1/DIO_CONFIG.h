@@ -99,8 +99,6 @@ St_PortCfg_t G_StPORTF_Cfg =
 {
     /* Set the port id */
     .Port = DIO_PORTF_BUS,
-    /* Set the port ISR function */
-    .CallBackFunction = NULL,
 
     /* Configure port f pins */
     /** @defgroup PIN0 */

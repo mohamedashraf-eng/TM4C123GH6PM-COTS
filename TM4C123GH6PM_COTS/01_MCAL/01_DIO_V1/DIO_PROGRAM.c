@@ -85,25 +85,25 @@ vSetPORT_PinCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
     for(; (L_s8Iterator >= 0x00U); --L_s8Iterator)
     {
         /* Set all the registers configuration */
-        BIT_WRT(GPIO_DATA(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].data);
-        BIT_WRT(GPIO_DIR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].direction);
-        BIT_WRT(GPIO_AFSEL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].af);
-        BIT_WRT(GPIO_DR2R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr2);
-        BIT_WRT(GPIO_DR4R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr4);
-        BIT_WRT(GPIO_DR4R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr8);
-        BIT_WRT(GPIO_ODR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].od);
-        BIT_WRT(GPIO_PUR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pur);
-        BIT_WRT(GPIO_PDR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pdr);
-        BIT_WRT(GPIO_SLR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].slr);
-        BIT_WRT(GPIO_CR(Copy_tPortCfgInstance->Port),    L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].commit);
-        (DIO_PIN_MODE_DIGITAL == Copy_tPinCfgInstance[L_s8Iterator].mode) ? /* Set Analog/Digital */
+        BIT_WRT(GPIO_DATA(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].data);
+        BIT_WRT(GPIO_DIR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].direction);
+        BIT_WRT(GPIO_AFSEL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].af);
+        BIT_WRT(GPIO_DR2R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dr2);
+        BIT_WRT(GPIO_DR4R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dr4);
+        BIT_WRT(GPIO_DR4R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dr8);
+        BIT_WRT(GPIO_ODR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].od);
+        BIT_WRT(GPIO_PUR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].pur);
+        BIT_WRT(GPIO_PDR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].pdr);
+        BIT_WRT(GPIO_SLR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].slr);
+        BIT_WRT(GPIO_CR(Copy_tPortCfgInstance->Port),    L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].commit);
+        (DIO_PIN_MODE_DIGITAL == Copy_tPortCfgInstance->Pin[L_s8Iterator].mode) ? /* Set Analog/Digital */
                                                     BIT_SET(GPIO_DEN(Copy_tPortCfgInstance->Port), L_s8Iterator)  :
                                                     BIT_SET(GPIO_AMSEL(Copy_tPortCfgInstance->Port), L_s8Iterator);
-        BIT_WRT(GPIO_ADCCTL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].adcctl);
-        BIT_WRT(GPIO_DMACTL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dmactl);
+        BIT_WRT(GPIO_ADCCTL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].adcctl);
+        BIT_WRT(GPIO_DMACTL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dmactl);
 
         /** @defgroup Set interrupt configurations */
-        BIT_WRT(GPIO_IM(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].int_mask);
+        BIT_WRT(GPIO_IM(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].int_mask);
 
         /** @todo set the interrupt sense */
     }

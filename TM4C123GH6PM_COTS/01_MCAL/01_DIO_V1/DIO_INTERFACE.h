@@ -40,6 +40,26 @@
 ----------------------------------------------------------------------
 */
 
+/** @defgroup Ports Configuration portal */
+#if (DIO_PORTF_CONFIG == DIO_PORT_CONFIG_ACTIVE)
+extern St_PortCfg_t G_StPORTF_Cfg;
+#endif
+
+#if (DIO_PORTB_CONFIG == DIO_PORT_CONFIG_ACTIVE)
+extern St_PortCfg_t G_StPORTB_Cfg;
+#endif
+
+#if (DIO_PORTC_CONFIG == DIO_PORT_CONFIG_ACTIVE)
+extern St_PortCfg_t G_StPORTC_Cfg;
+#endif
+
+#if (DIO_PORTD_CONFIG == DIO_PORT_CONFIG_ACTIVE)
+extern St_PortCfg_t G_StPORTD_Cfg;
+#endif
+
+#if (DIO_PORTE_CONFIG == DIO_PORT_CONFIG_ACTIVE)
+extern St_PortCfg_t G_StPORTE_Cfg;
+#endif
 
 #if (DIO_PORTF_CONFIG == DIO_PORT_CONFIG_ACTIVE)
 extern St_PortCfg_t G_StPORTF_Cfg;
