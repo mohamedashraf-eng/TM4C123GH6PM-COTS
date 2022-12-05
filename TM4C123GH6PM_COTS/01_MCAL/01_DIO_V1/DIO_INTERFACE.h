@@ -10,6 +10,8 @@
 #ifndef __DIO_INTERFACE_H__
 #define __DIO_INTERFACE_H__
 
+#include "DIO_PRIVATE.h"
+
 /*
 ----------------------------------------------------------------------
 - Macros
@@ -40,14 +42,7 @@
 */
 
 /** @defgroup Enum data type. */
-/**
- * @brief DIO error status enum.
- */
-typedef enum
-{
-    DIO_NOK  = 0x00U,
-    DIO_OK
-}En_DIO_ErrorStatus_t;
+
 
 /** @defgroup Pin configuration parameters */
 typedef enum

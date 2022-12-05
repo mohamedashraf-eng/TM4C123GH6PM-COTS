@@ -29,7 +29,8 @@
 */
 
 /** @defgroup Call back functions */
-DIO_CallBackFuncPtr_t G_tCallBackFuncPtr[DIO_NUM_OF_PORTS] = {NULL, NULL, NULL, NULL, NULL, NULL};
+DIO_CallBackFuncPtr_t G_tCallBackFuncPtr[DIO_NUM_OF_PORTS] = {NULL, NULL, NULL,
+                                                              NULL, NULL, NULL};
 
 /*
 ----------------------------------------------------------------------
@@ -46,10 +47,10 @@ DIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
     En_DIO_ErrorStatus_t L_EnSetterFuncErrStatus = DIO_NOK;
 
     /* Check if the passed argument is valid */
-    if( (DIO_OK == EnPortCfgInstanceHandler(Copy_tCfgInstance)) )
+    if( (DIO_OK == EnPortCfgInstanceHandler(Copy_tPortCfgInstance)) )
     {
         /* Switch on the passed port */
-        switch(Copy_tCfgInstance->Port)
+        switch(Copy_tPortCfgInstance->Port)
         {
             case DIO_PORTA_ID:
                     L_EnSetterFuncErrStatus =
@@ -90,11 +91,12 @@ DIO_EnSetCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
         {
             L_EnSetterFuncErrStatus = EnSetCallBack(Copy_tPortCfgInstance->Port,
                                                     Copy_tPortCfgInstance->CallBackFunction);
-            if( (DIO_OK == L_EnSetterFuncErrStatus)
-            {
-                L_EnThisFuncErrStatus = DIO_OK;
-            }
-            else {/* Error handle - Print to user */}
+
+			if( (DIO_OK == L_EnSetterFuncErrStatus) )
+			{
+			     L_EnThisFuncErrStatus = DIO_OK;
+			}
+			else {/* Error handle - Print to user */}
         }
         else {/* Error handle - Print to user */}
     }
@@ -170,34 +172,8 @@ EnSetPORTF_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance)
 {
     /* Function variables */
     En_DIO_ErrorStatus_t L_EnThisFuncErrStatus = DIO_NOK;
-    s8 L_s8Iterator = DIO_PORTF_MAX_PIN_NUMS;
 
-    /* Loop for all portf pins */
-    for(; (L_s8Iterator >= 0x00U); --L_s8Iterator)
-    {
-        /* Set all the registers configuration */
-        BIT_WRT(GPIO_DATA(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].data);
-        BIT_WRT(GPIO_DIR(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].direction);
-        BIT_WRT(GPIO_AFSEL(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].af);
-        BIT_WRT(GPIO_DR2R(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr2);
-        BIT_WRT(GPIO_DR4R(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr4);
-        BIT_WRT(GPIO_DR4R(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr8);
-        BIT_WRT(GPIO_ODR(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].od);
-        BIT_WRT(GPIO_PUR(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pur);
-        BIT_WRT(GPIO_PDR(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pdr);
-        BIT_WRT(GPIO_SLR(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].slr);
-        BIT_WRT(GPIO_CR(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].commit);
-        (Dio_PinMode_Digital == Copy_tPinCfgInstance[L_s8Iterator].mode) ? /* Set Analog/Digital */
-                                                    BIT_SET(GPIO_DEN(GPIOF_APB_BASE_ADDRESS), L_s8Iterator); :
-                                                    BIT_SET(GPIO_AMSEL(GPIOF_APB_BASE_ADDRESS), L_s8Iterator);
-        BIT_WRT(GPIO_ADCCTL(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].adcctl);
-        BIT_WRT(GPIO_DMACTL(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dmactl);
-
-        /** @defgroup Set interrupt configurations */
-        BIT_WRT(GPIO_IM(DIO_PORTF_BUS), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].int_mask);
-
-        /** @todo set the interrupt sense */
-    }
+    vSetPORT_PinCfg(DIO_PORTF_BUS, Copy_tPinCfgInstance);
 
     L_EnThisFuncErrStatus = DIO_OK;
 
@@ -214,8 +190,41 @@ EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance)
 
     return L_EnThisFuncErrStatus;
 }
+/** ------ New ------ Function ------ */
+static void
+vSetPORT_PinCfg(Reg_t Copy_tPortAddr,
+                const St_PinCfg_t * const Copy_tPinCfgInstance)
+{
+    s8 L_s8Iterator = DIO_PORTF_MAX_PIN_NUMS;
 
+    /* Loop for all portf pins */
+    for(; (L_s8Iterator >= 0x00U); --L_s8Iterator)
+    {
+        /* Set all the registers configuration */
+        BIT_WRT(GPIO_DATA(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].data);
+        BIT_WRT(GPIO_DIR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].direction);
+        BIT_WRT(GPIO_AFSEL(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].af);
+        BIT_WRT(GPIO_DR2R(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr2);
+        BIT_WRT(GPIO_DR4R(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr4);
+        BIT_WRT(GPIO_DR4R(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dr8);
+        BIT_WRT(GPIO_ODR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].od);
+        BIT_WRT(GPIO_PUR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pur);
+        BIT_WRT(GPIO_PDR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].pdr);
+        BIT_WRT(GPIO_SLR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].slr);
+        BIT_WRT(GPIO_CR(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].commit);
+        (Dio_PinMode_Digital == Copy_tPinCfgInstance[L_s8Iterator].mode) ? /* Set Analog/Digital */
+                                                    BIT_SET(GPIO_DEN(Copy_tPortAddr), L_s8Iterator)  :
+                                                    BIT_SET(GPIO_AMSEL(Copy_tPortAddr), L_s8Iterator);
+        BIT_WRT(GPIO_ADCCTL(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].adcctl);
+        BIT_WRT(GPIO_DMACTL(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].dmactl);
 
+        /** @defgroup Set interrupt configurations */
+        BIT_WRT(GPIO_IM(Copy_tPortAddr), L_s8Iterator, Copy_tPinCfgInstance[L_s8Iterator].int_mask);
+
+        /** @todo set the interrupt sense */
+    }
+}
+/** ------ New ------ Function ------ */
 /** @defgroup Interrupt ISR functions */
 static En_DIO_ErrorStatus_t
 EnSetCallBack(uC_PortID_t Copy_tPortID,
@@ -259,7 +268,6 @@ EnSetCallBack(uC_PortID_t Copy_tPortID,
 
     return L_EnThisFuncErrStatus;
 }
-
 /** ------ New ------ Function ------ */
 void GPIOA_Handler(void)
 {

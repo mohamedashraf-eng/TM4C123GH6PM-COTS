@@ -17,18 +17,18 @@
 */
 
 /** @defgroup Normal peripheral address */
-#define GPIOA_APB_BASE_ADDRESS  ( (u32) () )
-#define GPIOB_APB_BASE_ADDRESS  ( (u32) () )
-#define GPIOC_APB_BASE_ADDRESS  ( (u32) () )
-#define GPIOD_APB_BASE_ADDRESS  ( (u32) () )
-#define GPIOE_APB_BASE_ADDRESS  ( (u32) () )
-#define GPIOF_APB_BASE_ADDRESS  ( (u32) () )
-#define GPIOA_AHB_BASE_ADDRESS  ( (u32) () )
-#define GPIOB_AHB_BASE_ADDRESS  ( (u32) () )
-#define GPIOC_AHB_BASE_ADDRESS  ( (u32) () )
-#define GPIOD_AHB_BASE_ADDRESS  ( (u32) () )
-#define GPIOE_AHB_BASE_ADDRESS  ( (u32) () )
-#define GPIOF_AHB_BASE_ADDRESS  ( (u32) () )
+#define GPIOA_APB_BASE_ADDRESS  ( (u32) (0x40004000UL) )
+#define GPIOB_APB_BASE_ADDRESS  ( (u32) (0x40005000UL) )
+#define GPIOC_APB_BASE_ADDRESS  ( (u32) (0x40006000UL) )
+#define GPIOD_APB_BASE_ADDRESS  ( (u32) (0x40007000UL) )
+#define GPIOE_APB_BASE_ADDRESS  ( (u32) (0x40024000UL) )
+#define GPIOF_APB_BASE_ADDRESS  ( (u32) (0x40025000UL) )
+#define GPIOA_AHB_BASE_ADDRESS  ( (u32) (0x40058000UL) )
+#define GPIOB_AHB_BASE_ADDRESS  ( (u32) (0x40059000UL) )
+#define GPIOC_AHB_BASE_ADDRESS  ( (u32) (0x4005A000UL) )
+#define GPIOD_AHB_BASE_ADDRESS  ( (u32) (0x4005B000UL) )
+#define GPIOE_AHB_BASE_ADDRESS  ( (u32) (0x4005C000UL) )
+#define GPIOF_AHB_BASE_ADDRESS  ( (u32) (0x4005D000UL) )
 /** @defgroup Normal peripheral registers addresses */
 #define GPIO_DATA(_PORT_BASE_ADDR)   ( REG32RWM(ADD_OFFSET(_PORT_BASE_ADDR, 0x000UL)) )
 #define GPIO_DIR(_PORT_BASE_ADDR)    ( REG32RWM(ADD_OFFSET(_PORT_BASE_ADDR, 0x400UL)) )
@@ -86,11 +86,33 @@
 #define DIO_PORTE_MAX_PIN_NUMS     ( (u8) (0x06U) )
 #define DIO_PORTF_MAX_PIN_NUMS     ( (u8) (0x05U) )
 
+#define DIOA_APB_BUS_ID            (GPIOA_APB_BASE_ADDRESS)
+#define DIOB_APB_BUS_ID            (GPIOB_APB_BASE_ADDRESS)
+#define DIOC_APB_BUS_ID            (GPIOC_APB_BASE_ADDRESS)
+#define DIOD_APB_BUS_ID            (GPIOD_APB_BASE_ADDRESS)
+#define DIOE_APB_BUS_ID            (GPIOE_APB_BASE_ADDRESS)
+#define DIOF_APB_BUS_ID            (GPIOF_APB_BASE_ADDRESS)
+#define DIOA_AHB_BUS_ID            (GPIOA_AHB_BASE_ADDRESS)
+#define DIOB_AHB_BUS_ID            (GPIOB_AHB_BASE_ADDRESS)
+#define DIOC_AHB_BUS_ID            (GPIOC_AHB_BASE_ADDRESS)
+#define DIOD_AHB_BUS_ID            (GPIOD_AHB_BASE_ADDRESS)
+#define DIOE_AHB_BUS_ID            (GPIOE_AHB_BASE_ADDRESS)
+#define DIOF_AHB_BUS_ID            (GPIOF_AHB_BASE_ADDRESS)
+
 /*
 ----------------------------------------------------------------------
 - Data types
 ----------------------------------------------------------------------
 */
+
+/**
+ * @brief DIO error status enum.
+ */
+typedef enum
+{
+    DIO_NOK  = 0x00U,
+    DIO_OK
+}En_DIO_ErrorStatus_t;
 
 /**
  * @defgroup User defined data type.
@@ -144,7 +166,6 @@ typedef struct
     DIO_CallBackFuncPtr_t CallBackFunction;
 }St_PortCfg_t;
 
-
 /*
 ----------------------------------------------------------------------
 - Private functions declaration
@@ -174,6 +195,11 @@ EnSetPORTE_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
 __attribute__((always_inline))
 static En_DIO_ErrorStatus_t
 EnSetPORTF_Cfg(const St_PinCfg_t * const Copy_tPinCfgInstance);
+
+__attribute__((always_inline))
+static void
+vSetPORT_PinCfg(Reg_t Copy_tPortAddr,
+                const St_PinCfg_t * const Copy_tPinCfgInstance);
 
 
 static En_DIO_ErrorStatus_t

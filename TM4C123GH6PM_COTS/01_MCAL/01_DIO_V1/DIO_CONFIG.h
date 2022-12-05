@@ -21,15 +21,18 @@
  *        set the bus id for each port.
  *
  * @defgroup Config Params
- *      @arg DIO_APB_BUS_ID
- *      @arg DIO_AHB_BUS_ID
+ *      @arg DIOx_APB_BUS_ID
+ *      @arg DIOx_AHB_BUS_ID
+ *
+ *          @note 'x' beside the "DIOx" is for replacment by
+ *                 the desired port [A, B, C, D, E, F].
  */
-#define DIO_PORTA_BUS   ( DIO_APB_BUS_ID )
-#define DIO_PORTB_BUS   ( DIO_APB_BUS_ID )
-#define DIO_PORTC_BUS   ( DIO_APB_BUS_ID )
-#define DIO_PORTD_BUS   ( DIO_APB_BUS_ID )
-#define DIO_PORTE_BUS   ( DIO_APB_BUS_ID )
-#define DIO_PORTF_BUS   ( DIO_AHB_BUS_ID )
+#define DIO_PORTA_BUS   ( DIOA_APB_BUS_ID )
+#define DIO_PORTB_BUS   ( DIOB_APB_BUS_ID )
+#define DIO_PORTC_BUS   ( DIOC_APB_BUS_ID )
+#define DIO_PORTD_BUS   ( DIOD_APB_BUS_ID )
+#define DIO_PORTE_BUS   ( DIOE_APB_BUS_ID )
+#define DIO_PORTF_BUS   ( DIOF_AHB_BUS_ID )
 /**
  * @brief PORT mode.
  *
