@@ -79,36 +79,170 @@ EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance)
 static void
 vSetPORT_PinCfg(const St_PortCfg_t * const Copy_tPortCfgInstance)
 {
-    s8 L_s8Iterator = DIO_PORTF_MAX_PIN_NUMS;
+    s8 L_s8PinNum = DIO_PORTF_MAX_PIN_NUMS;
 
     /* Loop for all portf pins */
-    for(; (L_s8Iterator >= 0x00U); --L_s8Iterator)
+    for(; (L_s8PinNum >= 0x00U); --L_s8PinNum)
     {
         /* Set all the registers configuration */
-        BIT_WRT(GPIO_DATA(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].data);
-        BIT_WRT(GPIO_DIR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].direction);
-        BIT_WRT(GPIO_AFSEL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].af);
-        BIT_WRT(GPIO_DR2R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dr2);
-        BIT_WRT(GPIO_DR4R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dr4);
-        BIT_WRT(GPIO_DR4R(Copy_tPortCfgInstance->Port),  L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dr8);
-        BIT_WRT(GPIO_ODR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].od);
-        BIT_WRT(GPIO_PUR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].pur);
-        BIT_WRT(GPIO_PDR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].pdr);
-        BIT_WRT(GPIO_SLR(Copy_tPortCfgInstance->Port),   L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].slr);
-        BIT_WRT(GPIO_CR(Copy_tPortCfgInstance->Port),    L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].commit);
-        (DIO_PIN_MODE_DIGITAL == Copy_tPortCfgInstance->Pin[L_s8Iterator].mode) ? /* Set Analog/Digital */
-                                                    BIT_SET(GPIO_DEN(Copy_tPortCfgInstance->Port), L_s8Iterator)  :
-                                                    BIT_SET(GPIO_AMSEL(Copy_tPortCfgInstance->Port), L_s8Iterator);
-        BIT_WRT(GPIO_ADCCTL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].adcctl);
-        BIT_WRT(GPIO_DMACTL(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].dmactl);
+        vSetPin_DATA(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].data);
+        vSetPin_DIR(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].direction);
+        vSetPin_AFSEL(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].af);
+        vSetPin_DR2(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].dr2);
+        vSetPin_DR4(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].dr4);
+        vSetPin_DR8(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].dr8);
+        vSetPin_OD(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].od);
+        vSetPin_PUR(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].pur);
+        vSetPin_PDR(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].pdr);
+        vSetPin_SLR(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].slr);
+        vSetPin_COMMIT(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].commit);
+        (DIO_PIN_MODE_DIGITAL == Copy_tPortCfgInstance->Pin[L_s8PinNum].mode) ? /* Set Analog/Digital */
+                                                    vSetPin_DIG(Copy_tPortCfgInstance->Port, L_s8PinNum)  :
+                                                    vSetPin_AMSEL(Copy_tPortCfgInstance->Port, L_s8PinNum);
+        vSetPin_ADCTL(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].adcctl);
+        vSetPin_DMACTL(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].dmactl);
 
         /** @defgroup Set interrupt configurations */
-        BIT_WRT(GPIO_IM(Copy_tPortCfgInstance->Port), L_s8Iterator, Copy_tPortCfgInstance->Pin[L_s8Iterator].int_mask);
+        vSetPin_INTMASK(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].int_mask);
+        vSetPin_INTSENSE(Copy_tPortCfgInstance->Port, L_s8PinNum, Copy_tPortCfgInstance->Pin[L_s8PinNum].int_sense);
 
-        /** @todo set the interrupt sense */
     }
 }
 /** ------ New ------ Function ------ */
+static void
+vSetPin_DATA(Reg_t Copy_tRegAddr,
+             uC_PinID_t Copy_tPinNum,
+             u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_DATA(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_DIG(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum)
+{
+    BIT_SET(GPIO_DEN(Copy_tRegAddr),  Copy_tPinNum);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_AMSEL(Reg_t Copy_tRegAddr,
+             uC_PinID_t Copy_tPinNum)
+{
+    BIT_SET(GPIO_AMSEL(Copy_tRegAddr),  Copy_tPinNum);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_DIR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_DIR(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_AFSEL(Reg_t Copy_tRegAddr,
+              uC_PinID_t Copy_tPinNum,
+              u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_AFSEL(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_OD(Reg_t Copy_tRegAddr,
+             uC_PinID_t Copy_tPinNum,
+             u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_ODR(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_PUR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_PUR(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_PDR(Reg_t Copy_tRegAddr,
+             uC_PinID_t Copy_tPinNum,
+             u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_PDR(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_SLR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_SLR(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_COMMIT(Reg_t Copy_tRegAddr,
+               uC_PinID_t Copy_tPinNum,
+               u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_CR(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_DR2(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_DR2R(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_DR4(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_DR4R(Copy_tRegAddr),  Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_DR8(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_DR8R(Copy_tRegAddr), Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_ADCTL(Reg_t Copy_tRegAddr,
+              uC_PinID_t Copy_tPinNum,
+              u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_ADCCTL(Copy_tRegAddr), Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_DMACTL(Reg_t Copy_tRegAddr,
+               uC_PinID_t Copy_tPinNum,
+               u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_DMACTL(Copy_tRegAddr), Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_INTMASK(Reg_t Copy_tRegAddr,
+             uC_PinID_t Copy_tPinNum,
+             u8 Copy_u8PinState)
+{
+    BIT_WRT(GPIO_IM(Copy_tRegAddr), Copy_tPinNum, Copy_u8PinState);
+}
+/** ------ New ------ Function ------ */
+static void
+vSetPin_INTSENSE(Reg_t Copy_tRegAddr,
+                 uC_PinID_t Copy_tPinNum,
+                 u8 Copy_u8PinState)
+{
+    /**/
+}
+
 /** @defgroup Interrupt ISR functions */
 static En_DIO_ErrorStatus_t
 EnSetCallBack(uC_PortID_t Copy_tPortID,

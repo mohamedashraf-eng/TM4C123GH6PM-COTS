@@ -246,9 +246,94 @@ typedef struct
 ----------------------------------------------------------------------
 */
 
+/** @defgroup Setter Functions */
 __attribute__((always_inline))
 static void
 vSetPORT_PinCfg(const St_PortCfg_t * const Copy_tPortCfgInstance);
+
+__attribute__((always_inline))
+static void
+vSetPin_DATA(Reg_t Copy_tRegAddr,
+             uC_PinID_t Copy_tPinNum,
+             u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_DIG(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum);
+__attribute__((always_inline))
+static void
+vSetPin_AMSEL(Reg_t Copy_tRegAddr,
+              uC_PinID_t Copy_tPinNum);
+__attribute__((always_inline))
+static void
+vSetPin_DIR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_AFSEL(Reg_t Copy_tRegAddr,
+              uC_PinID_t Copy_tPinNum,
+              u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_OD(Reg_t Copy_tRegAddr,
+           uC_PinID_t Copy_tPinNum,
+           u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_PUR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_PDR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_SLR(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_COMMIT(Reg_t Copy_tRegAddr,
+               uC_PinID_t Copy_tPinNum,
+               u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_DR2(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_DR4(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_DR8(Reg_t Copy_tRegAddr,
+            uC_PinID_t Copy_tPinNum,
+            u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_ADCTL(Reg_t Copy_tRegAddr,
+              uC_PinID_t Copy_tPinNum,
+              u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_DMACTL(Reg_t Copy_tRegAddr,
+               uC_PinID_t Copy_tPinNum,
+               u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_INTMASK(Reg_t Copy_tRegAddr,
+                uC_PinID_t Copy_tPinNum,
+                u8 Copy_u8PinState);
+__attribute__((always_inline))
+static void
+vSetPin_INTSENSE(Reg_t Copy_tRegAddr,
+                 uC_PinID_t Copy_tPinNum,
+                 u8 Copy_u8PinState);
 
 static En_DIO_ErrorStatus_t
 EnPortCfgInstanceHandler(const St_PortCfg_t * const Copy_tPortCfgInstance);
